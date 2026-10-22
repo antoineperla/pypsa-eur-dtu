@@ -6395,8 +6395,21 @@ if __name__ == "__main__":
     ext_carriers = snakemake.params.electricity.get("extendable_carriers", dict())
 
     investment_year = int(snakemake.wildcards.planning_horizons)
-
+    wind_cost_factor = 1.0
+    for opt in snakemake.wildcards.sector_opts.split("-"):
+        if opt.startswith("wcf"):
+            wind_cost_factor = float(opt.replace("wcf", ""))
+            logger.info(
+                f"Wind Cost Factor detected : {wind_cost_factor} for onwind_type2"
+            )
     n = pypsa.Network(snakemake.input.network)
+    if "onwind_type2" in n.generators.carrier.values:
+        mask = n.generators.carrier == "onwind_type2"
+        n.generators.loc[mask, "capital_cost"] *= wind_cost_factor
+        logger.info(
+            f"New capital_cost average for onwind_type2 : {n.generators.loc[mask, 'capital_cost'].mean():.2f}"
+        )
+
 
     pop_layout = pd.read_csv(snakemake.input.clustered_pop_layout, index_col=0)
     nhours = n.snapshot_weightings.generators.sum()

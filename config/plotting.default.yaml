@@ -394,6 +394,7 @@ plotting:
   tech_colors:
     # wind
     onwind: "#235ebc"
+    onwind_type2: "#235ebc"
     onshore wind: "#235ebc"
     offwind: "#6895dd"
     offshore wind: "#6895dd"
