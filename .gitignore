@@ -35,7 +35,6 @@ _build
 /scripts/create_scenarios.py
 /config/create_scenarios.py
 
-config/config.yaml
 config/scenarios.yaml
 
 /data/links_p_nom.csv
