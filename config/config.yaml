@@ -27,8 +27,8 @@ run:
     file: config/scenarios.yaml
   disable_progressbar: false
   shared_resources: false
-    policy: false
-    exclude: []
+    policy:false
+    exclude:[]
   use_shadow_directory: false
   default_target_rule: all
 
