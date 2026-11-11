@@ -20,10 +20,10 @@ remote:
 
 # docs in https://pypsa-eur.readthedocs.io/en/latest/configuration.html#run
 run:
-  prefix: ""
-  name: "2013_runs"
+  prefix: "lwt_resilience"
+  name: "all"
   scenarios:
-    enable: false
+    enable: true
     file: config/scenarios.yaml
   disable_progressbar: false
   shared_resources:
@@ -42,13 +42,8 @@ scenario:
   opts:
   - ""
   sector_opts:
-  - Co2L0-3h-lv1.25-wcf0.5
-  - Co2L0-3h-lv1.25-wcf0.6
-  - Co2L0-3h-lv1.25-wcf0.7
-  - Co2L0-3h-lv1.25-wcf0.8
-  - Co2L0-3h-lv1.25-wcf0.9
-  - Co2L0-3h-lv1.25-wcf1.0
-  - Co2L0-3h-lv1.25-wcf1.1
+  - Co2L0-24h-lv1.25-wcf0.7
+  - Co2L0-24h-lv1.25-wcf1.0
   planning_horizons:
   - 2050
 
@@ -657,7 +652,7 @@ sector:
   aviation: false
   agriculture: false
   fossil_fuels: false
-  district_heating:
+  district_heating: 
     potential: 0.6
     progress:
       2020: 0.0
@@ -854,16 +849,16 @@ sector:
     decentral: 1.1
     central: 1.0
   chp:
-    enable: true
+    enable: false
     fuel:
     - solid biomass
     - gas
     micro_chp: false
   solar_thermal: true
   solar_cf_correction: 0.788457
-  methanation: true
+  methanation: false
   coal_cc: false
-  dac: true
+  dac: false
   co2_vent: false
   heat_vent:
     urban central: true
@@ -873,12 +868,12 @@ sector:
   allam_cycle_gas: false
   hydrogen_fuel_cell: true
   hydrogen_turbine: true
-  SMR: true
-  SMR_cc: true
+  SMR: false
+  SMR_cc: false
   regional_oil_demand: true
   regional_coal_demand: false
   regional_co2_sequestration_potential:
-    enable: true
+    enable: false
     attribute:
     - conservative estimate GAS Mt
     - conservative estimate OIL Mt
@@ -897,8 +892,8 @@ sector:
     2050: 250
   co2_sequestration_cost: 30
   co2_sequestration_lifetime: 50
-  co2_spatial: true
-  co2_network: true
+  co2_spatial: false
+  co2_network: false
   co2_network_cost_factor: 1
   co2_network_liquefaction: false
   cc_fraction: 0.9
@@ -920,11 +915,11 @@ sector:
     methanol_to_power:
       ccgt: false
       ccgt_cc: false
-      ocgt: true
+      ocgt: false
       allam: false
-    biomass_to_methanol: true
+    biomass_to_methanol: false
     biomass_to_methanol_cc: false
-  ammonia: true
+  ammonia: false
   min_part_load_electrolysis: 0
   min_part_load_fischer_tropsch: 0.5
   min_part_load_methanolisation: 0.3
@@ -965,18 +960,18 @@ sector:
   H2_retrofit: false
   H2_retrofit_capacity_per_CH4: 0.6
   gas_network_connectivity_upgrade: 1
-  gas_distribution_grid: true
+  gas_distribution_grid: false
   gas_distribution_grid_cost_factor: 1.0
-  biomass_spatial: true
+  biomass_spatial: false
   biomass_transport: false
-  biogas_upgrading: true
+  biogas_upgrading: false
   biogas_upgrading_cc: false
   conventional_generation:
     OCGT: gas
     CCGT: gas
-  biomass_to_liquid: true
+  biomass_to_liquid: false
   biomass_to_liquid_cc: false
-  electrobiofuels: true
+  electrobiofuels: false
   biosng: false
   biosng_cc: false
   bioH2: false
@@ -1158,7 +1153,7 @@ clustering:
     buses: {}
   temporal:
     resolution_elec: false
-    resolution_sector: false
+    resolution_sector: "24h"
 
 # docs in https://pypsa-eur.readthedocs.io/en/latest/configuration.html#adjustments
 adjustments:
@@ -1175,7 +1170,7 @@ solving:
   options:
     clip_p_max_pu: 0.01
     load_shedding:
-      enable: false
+      enable: true
       default_cost: 100000
       all_carriers: true
       carriers: {}
@@ -1187,9 +1182,7 @@ solving:
     curtailment_mode: false
     noisy_costs: true
     skip_iterations: true
-    rolling_horizon: true
-    horizon: 336
-    overlap: 0
+    rolling_horizon: false
     seed: 123
     custom_extra_functionality: ../data/custom_extra_functionality.py
     io_api:
